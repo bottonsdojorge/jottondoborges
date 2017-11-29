@@ -1,0 +1,38 @@
+CREATE TABLE Cliente(
+	id INT IDENTITY PRIMARY KEY,
+	Nome VARCHAR(100) NOT NULL,
+	CPF VARCHAR(11),
+	CNPJ VARCHAR(11),
+	Email VARCHAR(100) NOT NULL
+)
+CREATE TABLE Funcionario(
+	id INT IDENTITY PRIMARY KEY,
+	Nome VARCHAR(100) NOT NULL,
+	Motorista BIT NOT NULL,
+	Tecnico BIT NOT NULL,
+	Identidade VARCHAR(20) NOT NULL,
+	CLT VARCHAR(45) NOT NULL,
+	Salario NUMERIC(10,2) NOT NULL,
+	Observacao VARCHAR(100)
+)
+CREATE TABLE Endereco(
+	id INT IDENTITY PRIMARY KEY,
+	Estado VARCHAR(50) NOT NULL,
+	Cidade VARCHAR(50) NOT NULL,
+	Bairro VARCHAR(50) NOT NULL,
+	Rua VARCHAR(50) NOT NULL,
+	Numero INT NOT NULL,
+	Complemento VARCHAR(100),
+	Funcionario_id INT NULL,
+	Cliente_id INT NULL,
+	FOREIGN KEY (Funcionario_id) REFERENCES Funcionario(id),
+	FOREIGN KEY (Cliente_id) REFERENCES Cliente(id)
+)
+CREATE TABLE Telefone(
+	id INT IDENTITY PRIMARY KEY,
+	Telefone VARCHAR(15) NOT NULL,
+	Funcionario_id INT NULL,
+	Cliente_id INT NULL,
+	FOREIGN KEY (Funcionario_id) REFERENCES Funcionario(id),
+	FOREIGN KEY (Cliente_id) REFERENCES Cliente(id)
+)
