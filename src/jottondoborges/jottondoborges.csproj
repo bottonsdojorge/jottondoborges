@@ -60,7 +60,10 @@
     <Content Include="autenticado\clientes\editar.aspx" />
     <Content Include="autenticado\clientes\incluir.aspx" />
     <Content Include="autenticado\clientes\index.aspx" />
+    <Content Include="autenticado\excluir.aspx" />
+    <Content Include="autenticado\fornecedores\index.aspx" />
     <Content Include="autenticado\funcionarios\index.aspx" />
+    <Content Include="autenticado\produtos\index.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -119,11 +122,37 @@
     <Content Include="Scripts\popper.js.map" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="autenticado\excluir.aspx.cs">
+      <DependentUpon>excluir.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="autenticado\excluir.aspx.designer.cs">
+      <DependentUpon>excluir.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="autenticado\fornecedores\index.aspx.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="autenticado\fornecedores\index.aspx.designer.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="autenticado\produtos\index.aspx.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="autenticado\produtos\index.aspx.designer.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+    </Compile>
     <Compile Include="DAL\DALCliente.cs" />
     <Compile Include="DAL\DAL.cs" />
     <Compile Include="DAL\DALEndereco.cs" />
+    <Compile Include="DAL\DALFornecedor.cs" />
     <Compile Include="DAL\DALFuncionario.cs" />
+    <Compile Include="DAL\DALProduto.cs" />
     <Compile Include="DAL\DALTelefone.cs" />
+    <Compile Include="Modelo\Fornecedor.cs" />
+    <Compile Include="Modelo\Pagamento.cs" />
+    <Compile Include="Modelo\Produto.cs" />
     <Compile Include="Modelo\telefone.cs" />
     <Compile Include="Modelo\endereco.cs" />
     <Compile Include="Modelo\Cliente.cs" />

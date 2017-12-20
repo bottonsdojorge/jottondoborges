@@ -126,5 +126,27 @@ namespace jottondoborges.App_Code.DAL
                 throw;
             }
         }
+
+        [DataObjectMethod(DataObjectMethodType.Delete)]
+        public static void Delete(int i)
+        {
+            try
+            {
+                DALTelefone.DeleteFromFuncionario(i);
+                DALEndereco.DeleteFromFuncionario(i);
+                using (conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string q = "DELETE FROM Funcionario WHERE id = @id";
+                    SqlCommand cmd = new SqlCommand(q, conn);
+                    cmd.Parameters.Add("@id", SqlDbType.Int).Value = i;
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

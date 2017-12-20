@@ -16,6 +16,7 @@ namespace jottondoborges.App_Code.DAO
         public string complemento { get; private set; }
         public int idFuncionario { get; private set; }
         public int idCliente { get; private set; }
+        public int idFornecedor { get; private set; }
 
         public Endereco()
         {
@@ -44,6 +45,11 @@ namespace jottondoborges.App_Code.DAO
         public void setFuncionario (int id)
         {
             idFuncionario = id;
+        }
+
+        public void setFornecedor(int id)
+        {
+            idFornecedor = id;
         }
 
         public void setCliente(int id)

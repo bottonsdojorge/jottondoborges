@@ -9,21 +9,21 @@ using jottondoborges.App_Code.DAO;
 
 namespace jottondoborges.App_Code.DAL
 {
-    public class DALCliente : DAL
+    public class DALProduto : DAL
     {
-        public DALCliente() : base() {}
+        public DALProduto() : base(){}
 
         [DataObjectMethod(DataObjectMethodType.Select)]
-        public static List<Cliente> SelectAll()
+        public static List<Produto> SelectAll()
         {
-            Cliente c;
-            List<Cliente> cs = new List<Cliente>();
+            Produto c;
+            List<Produto> cs = new List<Produto>();
             try
             {
                 using (conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string s = "SELECT * FROM Cliente";
+                    string s = "SELECT * FROM Produto";
                     SqlCommand cmd = new SqlCommand(s, conn);
                     SqlDataReader d;
                     using (d = cmd.ExecuteReader())
@@ -33,15 +33,8 @@ namespace jottondoborges.App_Code.DAL
                             while (d.Read())
                             {
                                 int i = Convert.ToInt32(d["id"]);
-                                string n = d["Nome"].ToString();
-                                string cpf = (d["CPF"] != null) ? d["CPF"].ToString() : "";
-                                string cnpj = (d["CNPJ"] != null) ? d["CNPJ"].ToString() : "";
-                                string e = d["Email"].ToString();
-                                Endereco end = DALEndereco.SelectFromCliente(i);
-                                Telefone t = DALTelefone.SelectFromCliente(i);
-                                c = new Cliente(i, n, e, end, t);
-                                if (cpf != "") c.setCPF(cpf);
-                                else c.setCNPJ(cnpj);
+                                string n = d["Descricao"].ToString();
+                                c = new Produto(i, n);
                                 cs.Add(c);
                             }
                         }
@@ -55,15 +48,15 @@ namespace jottondoborges.App_Code.DAL
             return cs;
         }
         [DataObjectMethod(DataObjectMethodType.Select)]
-        public static Cliente Select(int i)
+        public static Produto Select(int i)
         {
-            Cliente c = new Cliente();
+            Produto c = new Produto();
             try
             {
                 using (conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string s = "SELECT * FROM Cliente WHERE id = @id ";
+                    string s = "SELECT * FROM Produto WHERE id = @id";
                     SqlCommand cmd = new SqlCommand(s, conn);
                     cmd.Parameters.Add("@id", SqlDbType.Int).Value = i;
                     SqlDataReader d;
@@ -73,15 +66,8 @@ namespace jottondoborges.App_Code.DAL
                         {
                             while (d.Read())
                             {
-                                string n = d["Nome"].ToString();
-                                string cpf = (d["CPF"] != null) ? d["CPF"].ToString() : "";
-                                string cnpj = (d["CNPJ"] != null) ? d["CNPJ"].ToString() : "";
-                                string e = d["Email"].ToString();
-                                Endereco end = DALEndereco.SelectFromCliente(i);
-                                Telefone t = DALTelefone.SelectFromCliente(i);
-                                c = new Cliente(i, n, e, end, t);
-                                if (cpf != "") c.setCPF(cpf);
-                                else c.setCNPJ(cnpj);
+                                string n = d["Descricao"].ToString();
+                                c = new Produto(i, n);
                             }
                         }
                     }
@@ -94,26 +80,17 @@ namespace jottondoborges.App_Code.DAL
             return c;
         }
         [DataObjectMethod(DataObjectMethodType.Insert)]
-        public static void Insert(Cliente cl)
+        public static void Insert(Produto p)
         {
             try
             {
                 using (conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string doc = (cl.CPF != "" && cl.CPF != null) ? "CPF" : "CNPJ";
-                    string q = "INSERT INTO Cliente (Nome, " + doc + ", Email) VALUES (@n, @d, @m) SET @ID = SCOPE_IDENTITY();";
+                    string q = "INSERT INTO Produto (Descricao) VALUES (@d)";
                     SqlCommand cmd = new SqlCommand(q, conn);
-                    cmd.Parameters.Add("@n", SqlDbType.VarChar).Value = cl.nome;
-                    cmd.Parameters.Add("@d", SqlDbType.VarChar).Value = (cl.CPF != "" && cl.CPF != null) ? cl.CPF : cl.CNPJ;
-                    cmd.Parameters.Add("@m", SqlDbType.VarChar).Value = cl.email;
-                    cmd.Parameters.Add("@ID", SqlDbType.Int).Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add("@d", SqlDbType.VarChar).Value = p.desc;
                     cmd.ExecuteNonQuery();
-                    int i = (int)cmd.Parameters["@ID"].Value;
-                    cl.telefone.setCliente(i);
-                    cl.endereco.setCliente(i);
-                    DALTelefone.Insert(cl.telefone);
-                    DALEndereco.Insert(cl.endereco);
                 }
             }
             catch (Exception)
@@ -121,17 +98,16 @@ namespace jottondoborges.App_Code.DAL
                 throw;
             }
         }
+
         [DataObjectMethod(DataObjectMethodType.Delete)]
         public static void Delete(int i)
         {
             try
             {
-                DALTelefone.DeleteFromCliente(i);
-                DALEndereco.DeleteFromCliente(i);
                 using (conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string q = "DELETE FROM Cliente WHERE id = @id";
+                    string q = "DELETE FROM Produto WHERE id = @id";
                     SqlCommand cmd = new SqlCommand(q, conn);
                     cmd.Parameters.Add("@id", SqlDbType.Int).Value = i;
                     cmd.ExecuteNonQuery();

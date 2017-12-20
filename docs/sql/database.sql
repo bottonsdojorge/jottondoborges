@@ -15,6 +15,13 @@ CREATE TABLE Funcionario(
 	Salario NUMERIC(10,2) NOT NULL,
 	Observacao VARCHAR(100)
 )
+CREATE TABLE Fornecedor(
+	id INT IDENTITY PRIMARY KEY,
+	Nome VARCHAR(100) NOT NULL,
+	CPF VARCHAR(11),
+	CNPJ VARCHAR(11),
+	Email VARCHAR(100) NOT NULL
+)
 CREATE TABLE Endereco(
 	id INT IDENTITY PRIMARY KEY,
 	Estado VARCHAR(50) NOT NULL,
@@ -28,6 +35,17 @@ CREATE TABLE Endereco(
 	FOREIGN KEY (Funcionario_id) REFERENCES Funcionario(id),
 	FOREIGN KEY (Cliente_id) REFERENCES Cliente(id)
 )
+CREATE TABLE EnderecoFornecedor(
+	id INT IDENTITY PRIMARY KEY,
+	Estado VARCHAR(50) NOT NULL,
+	Cidade VARCHAR(50) NOT NULL,
+	Bairro VARCHAR(50) NOT NULL,
+	Rua VARCHAR(50) NOT NULL,
+	Numero INT NOT NULL,
+	Complemento VARCHAR(100),
+	Fornecedor_id INT NULL,
+	FOREIGN KEY (Fornecedor_id) REFERENCES Fornecedor(id),
+)
 CREATE TABLE Telefone(
 	id INT IDENTITY PRIMARY KEY,
 	Telefone VARCHAR(15) NOT NULL,
@@ -35,4 +53,22 @@ CREATE TABLE Telefone(
 	Cliente_id INT NULL,
 	FOREIGN KEY (Funcionario_id) REFERENCES Funcionario(id),
 	FOREIGN KEY (Cliente_id) REFERENCES Cliente(id)
+)
+CREATE TABLE TelefoneFornecedor(
+	id INT IDENTITY PRIMARY KEY,
+	Telefone VARCHAR(15) NOT NULL,
+	Fornecedor_id INT NULL,
+	FOREIGN KEY (Fornecedor_id) REFERENCES Fornecedor(id),
+)
+CREATE TABLE Produto(
+	id INT IDENTITY PRIMARY KEY,
+	Descricao VARCHAR(50) NOT NULL
+)
+CREATE TABLE PgSalario(
+	id INT IDENTITY PRIMARY KEY,
+	Valor DECIMAL(10,2) NOT NULL,
+	Funcionario_id INT NOT NULL,
+	DataPagamento Date NOT NULL,
+	DataReferente Date NOT NULL,
+	FOREIGN KEY (Funcionario_id) REFERENCES Funcionario(id)
 )

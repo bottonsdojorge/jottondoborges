@@ -14,6 +14,8 @@
             <ul class="list-unstyled">
                 <li><a href="autenticado/clientes/index.aspx">Painel Clientes</a></li>
                 <li><a href="autenticado/funcionarios/index.aspx">Painel Funcionários</a></li>
+                <li><a href="autenticado/fornecedores/index.aspx">Painel Fornecedores</a></li>
+                <li><a href="autenticado/produtos/index.aspx">Painel Produtos</a></li>
             </ul>
         </div>
     </main>

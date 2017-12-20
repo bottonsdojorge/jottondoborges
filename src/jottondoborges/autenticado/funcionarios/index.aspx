@@ -152,7 +152,7 @@
                         <td><% Response.Write(f.CLT); %></td>
                         <td><% Response.Write(f.salario); %></td>
                         <td><% Response.Write(f.observacao); %></td>
-                        <td><a href="editar.aspx?uid=<% Response.Write(f.id); %>">Editar</a> <a href="#">Excluir</a></td>
+                        <td><a href="editar.aspx?uid=<% Response.Write(f.id); %>">Editar</a> <a href="../excluir.aspx?id=<% Response.Write(f.id); %>&t=<% Response.Write("fu"); %>">Excluir</a></td>
                     </tr>
                     <% } %>
                 </tbody>

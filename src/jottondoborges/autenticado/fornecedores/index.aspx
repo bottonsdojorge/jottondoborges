@@ -1,12 +1,11 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/base.Master" AutoEventWireup="true" CodeBehind="index.aspx.cs" Inherits="jottondoborges.autenticado.clientes.index" %>
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/base.Master" AutoEventWireup="true" CodeBehind="index.aspx.cs" Inherits="jottondoborges.autenticado.fornecedores.index" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <title>Painel de Clientes</title>
+    <title>Painel de Fornecedores</title>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ConteudoCorpo" runat="server">
     <div class="row">
         <div class="col">
-            <h1>Cadastro de Clientes 
+            <h1>Cadastro de Fornecedores 
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalInserir">
                     Inserir
                 </button>
@@ -17,7 +16,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="ModalInserir">Inserir Cliente</h5>
+                    <h5 class="modal-title" id="H1">Inserir Cliente</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
@@ -126,7 +125,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% foreach (jottondoborges.App_Code.DAO.Cliente c in clientes)
+                    <% foreach (jottondoborges.App_Code.DAO.Fornecedor c in fs)
                        {  %>
                     <tr>
                         <td><% Response.Write(c.id); %></td>
@@ -135,7 +134,7 @@
                         <td><% Response.Write(c.endereco.cidade); %></td>
                         <td><% Response.Write((c.CPF != "" && c.CPF != null) ? c.CPF : c.CNPJ); %></td>
                         <td><% Response.Write(c.email); %></td>
-                        <td><a href="editar.aspx?uid=<% Response.Write(c.id); %>">Editar</a> <a href="../excluir.aspx?id=<% Response.Write(c.id); %>&t=<% Response.Write("c"); %>">Excluir</a></td>
+                        <td><a href="editar.aspx?uid=<% Response.Write(c.id); %>">Editar</a> <a href="../excluir.aspx?id=<% Response.Write(c.id); %>&t=<% Response.Write("fo"); %>">Excluir</a></td>
                     </tr>
                     <% } %>
                 </tbody>
